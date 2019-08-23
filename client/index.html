@@ -1,21 +1,25 @@
 
 <!doctype html>
 <html lang="en">
-
-      <body>
-          <div id="container">
-              <video id="remoteVideo" width="500" height="400" autoplay></video>
-              <canvas id="overlay"width="500" height="400"></canvas>          
-          </div>
-      
-          <input type="button" id="start" onclick="start(true)" value="Start Video"></input>
-
+	
     
-          <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
-          <script src="webrtc.js"></script>
-          
-        </body>
-      
-      
+    <body>
+
+        <div id="container">
+            <video id="remoteVideo" width="500" height="400"  autoplay></video>
+            <canvas id="overlay"width="500" height="400" ></canvas>
+        </div>
+
+        <input type="button" id="start" onclick="start(true)" value="Start Video"></input>
+    
+        <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+        <script src="utils.js"></script>
+        <script src="webrtc.js"></script>
+
+       
+
+    </body>
+    
+    
 </html>
 

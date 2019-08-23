@@ -27,14 +27,12 @@ var peerConnectionConfig = {
     video: true,
     audio: false,
   };
-
-
 /*
   var ctrack = new clm.tracker();
-ctrack.init();
-var trackingStarted = true;
+  ctrack.init();
+  var trackingStarted = true;
 */
-  if(navigator.mediaDevices.getUserMedia) {
+if(navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia(constraints).then(getUserMediaSuccess).catch(errorHandler);
   } else {
     alert('Your browser does not support getUserMedia API');
@@ -44,7 +42,8 @@ var trackingStarted = true;
 function getUserMediaSuccess(stream) {
   localStream = stream;
 //  localVideo.style.filter = "invert(100%)";
-//  drawLoop();
+remoteVideo.srcObject = localStream;
+  drawLoop();
 }
 
 //ctrack.start(remoteVideo);
@@ -75,7 +74,7 @@ function drawLoop() {
 
   // write the manipulated pixel data to the second canvas
   overlayCC.putImageData( pixelData, 0, 0 );
-/*          if (ctrack.getCurrentPosition()) {
+  /*        if (ctrack.getCurrentPosition()) {
      ctrack.draw(overlay);
   }*/
   
@@ -90,9 +89,14 @@ function start(isCaller) {
 
   if(isCaller) {
     remoteVideo.srcObject = localStream;
+//    drawLoop();
     peerConnection.addStream(localStream);
       peerConnection.createOffer().then(createdDescription).catch(errorHandler);
   }
+}
+
+function errorHandler(error) {
+  console.log(error);
 }
 
 function gotMessageFromServer(message) {
@@ -134,9 +138,7 @@ function gotRemoteStream(event) {
   remoteVideo.srcObject = event.streams[0];
 }
 
-function errorHandler(error) {
-  console.log(error);
-}
+
 
 
 function createUUID() {

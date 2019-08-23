@@ -25,6 +25,15 @@ const handleRequest = function(request, response) {
     response.writeHead(200, {'Content-Type': 'application/javascript'});
     response.end(fs.readFileSync('client/webrtc.js'));
   }
+  else if(request.url === '/utils.js') {
+    response.writeHead(200, {'Content-Type': 'application/javascript'});
+    response.end(fs.readFileSync('client/utils.js'));
+  }
+  else if(request.url === '/clmtrack.js') {
+    response.writeHead(200, {'Content-Type': 'application/javascript'});
+    response.end(fs.readFileSync('client/clmtrack.js'));
+  }
+
 };
 
 const httpsServer = https.createServer(serverConfig,handleRequest);
