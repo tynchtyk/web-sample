@@ -42,8 +42,8 @@ if(navigator.mediaDevices.getUserMedia) {
 function getUserMediaSuccess(stream) {
   localStream = stream;
 //  localVideo.style.filter = "invert(100%)";
-remoteVideo.srcObject = localStream;
-  drawLoop();
+//remoteVideo.srcObject = localStream;
+//  drawLoop();
 }
 
 //ctrack.start(remoteVideo);
@@ -56,7 +56,7 @@ function drawLoop() {
   //overlayCC.clearRect(0, 0, v1.width, v1.height);
 
   overlayCC.drawImage( remoteVideo, 0, 0, remoteVideo.width, remoteVideo.height );
-  var pixelData = overlayCC.getImageData( 0, 0,remoteVideo.width, remoteVideo.height );
+  var pixelData = overlayCC.getImageData( 0, 0 , remoteVideo.width,remoteVideo.height);
 
   var avg, i;
 
@@ -86,11 +86,11 @@ function start(isCaller) {
   peerConnection = new RTCPeerConnection(peerConnectionConfig);
   peerConnection.onicecandidate = gotIceCandidate;
   peerConnection.ontrack = gotRemoteStream;
+  drawLoop();
 
   if(isCaller) {
-    remoteVideo.srcObject = localStream;
-//    drawLoop();
     peerConnection.addStream(localStream);
+    remoteVideo.srcObject = localStream;
       peerConnection.createOffer().then(createdDescription).catch(errorHandler);
   }
 }
