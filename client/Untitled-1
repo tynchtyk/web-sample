@@ -20,8 +20,8 @@ var peerConnectionConfig = {
   overlay = document.getElementById('overlay');
 	overlayCC = overlay.getContext('2d');
 
-  serverConnection = new WebSocket('wss://' + window.location.hostname + ':8443');
-  serverConnection.onmessage = gotMessageFromServer;
+  //serverConnection = new WebSocket('wss://' + window.location.hostname + ':8443');
+  //serverConnection.onmessage = gotMessageFromServer;
 
   var constraints = {
     video: true,
@@ -29,11 +29,10 @@ var peerConnectionConfig = {
   };
 
 
-/*
   var ctrack = new clm.tracker();
 ctrack.init();
 var trackingStarted = true;
-*/
+
   if(navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia(constraints).then(getUserMediaSuccess).catch(errorHandler);
   } else {
@@ -43,11 +42,12 @@ var trackingStarted = true;
 
 function getUserMediaSuccess(stream) {
   localStream = stream;
+  remoteVideo.srcObject = stream;
 //  localVideo.style.filter = "invert(100%)";
-//  drawLoop();
+  drawLoop();
 }
 
-//ctrack.start(remoteVideo);
+ctrack.start(remoteVideo);
 
 function drawLoop() {
   console.log("DRAWING");
@@ -75,9 +75,9 @@ function drawLoop() {
 
   // write the manipulated pixel data to the second canvas
   overlayCC.putImageData( pixelData, 0, 0 );
-/*          if (ctrack.getCurrentPosition()) {
+          if (ctrack.getCurrentPosition()) {
      ctrack.draw(overlay);
-  }*/
+  }
   
   
 }
@@ -87,11 +87,10 @@ function start(isCaller) {
   peerConnection = new RTCPeerConnection(peerConnectionConfig);
   peerConnection.onicecandidate = gotIceCandidate;
   peerConnection.ontrack = gotRemoteStream;
+  peerConnection.addStream(localStream);
 
   if(isCaller) {
-    remoteVideo.srcObject = localStream;
-    peerConnection.addStream(localStream);
-      peerConnection.createOffer().then(createdDescription).catch(errorHandler);
+    peerConnection.createOffer().then(createdDescription).catch(errorHandler);
   }
 }
 
