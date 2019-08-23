@@ -27,11 +27,11 @@ var peerConnectionConfig = {
     video: true,
     audio: false,
   };
-/*
+
   var ctrack = new clm.tracker();
   ctrack.init();
   var trackingStarted = true;
-*/
+
 if(navigator.mediaDevices.getUserMedia) {
     navigator.mediaDevices.getUserMedia(constraints).then(getUserMediaSuccess).catch(errorHandler);
   } else {
@@ -46,7 +46,6 @@ function getUserMediaSuccess(stream) {
 //  drawLoop();
 }
 
-//ctrack.start(remoteVideo);
 
 function drawLoop() {
   console.log("DRAWING");
@@ -74,9 +73,9 @@ function drawLoop() {
 
   // write the manipulated pixel data to the second canvas
   overlayCC.putImageData( pixelData, 0, 0 );
-  /*        if (ctrack.getCurrentPosition()) {
+          if (ctrack.getCurrentPosition()) {
      ctrack.draw(overlay);
-  }*/
+  }
   
   
 }
@@ -136,6 +135,8 @@ function createdDescription(description) {
 function gotRemoteStream(event) {
   console.log('got remote stream');
   remoteVideo.srcObject = event.streams[0];
+  ctrack.start(remoteVideo);
+
   drawLoop();
 }
 

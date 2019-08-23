@@ -29,6 +29,10 @@ const handleRequest = function(request, response) {
     response.writeHead(200, {'Content-Type': 'application/javascript'});
     response.end(fs.readFileSync('client/utils.js'));
   }
+  else if(request.url === '/clmtrackr.js') {
+    response.writeHead(200, {'Content-Type': 'application/javascript'});
+    response.end(fs.readFileSync('client/clmtrackr.js'));
+  }
 
 };
 
