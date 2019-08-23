@@ -86,7 +86,7 @@ function start(isCaller) {
   peerConnection = new RTCPeerConnection(peerConnectionConfig);
   peerConnection.onicecandidate = gotIceCandidate;
   peerConnection.ontrack = gotRemoteStream;
-  drawLoop();
+  //drawLoop();
 
   if(isCaller) {
     peerConnection.addStream(localStream);
@@ -136,6 +136,7 @@ function createdDescription(description) {
 function gotRemoteStream(event) {
   console.log('got remote stream');
   remoteVideo.srcObject = event.streams[0];
+  drawLoop();
 }
 
 
