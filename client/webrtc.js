@@ -52,10 +52,10 @@ function drawLoop() {
   requestAnimFrame(drawLoop);
    //psrElement.innerHTML = "score :" + ctrack.getScore().toFixed(4);
  
-  //overlayCC.clearRect(0, 0, v1.width, v1.height);
+  overlayCC.clearRect(0, 0, remoteVideo.width, remoteVideo.height);
 
   overlayCC.drawImage( remoteVideo, 0, 0, remoteVideo.width, remoteVideo.height );
-  var pixelData = overlayCC.getImageData( 0, 0 , remoteVideo.width,remoteVideo.height);
+  /*var pixelData = overlayCC.getImageData( 0, 0 , remoteVideo.width,remoteVideo.height);
 
   var avg, i;
 
@@ -72,7 +72,7 @@ function drawLoop() {
   }
 
   // write the manipulated pixel data to the second canvas
-  overlayCC.putImageData( pixelData, 0, 0 );
+  overlayCC.putImageData( pixelData, 0, 0 );*/
           if (ctrack.getCurrentPosition()) {
      ctrack.draw(overlay);
   }
